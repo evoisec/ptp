@@ -14,7 +14,7 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 
 ############################################################################################
 #
-# uses synthetically enlarged Census dataset (simulates Citizens welfare and income patterns) from here
+# Uses synthetically enlarged Census dataset (simulates Citizens welfare and income patterns) from here
 # http://archive.ics.uci.edu/ml/datasets/Adult - this is the original/staring dataset which is then enlarged further
 # to stress and measure the performance of Data Science Workloads
 #
