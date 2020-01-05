@@ -8,7 +8,7 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 spark = SparkSession.builder.appName("DecisionTree").getOrCreate()
 
 # Load the data stored in LIBSVM format as a DataFrame.
-data = spark.read.format("libsvm").load("data/mllib/sample_libsvm_data.txt")
+data = spark.read.format("libsvm").load("data.txt")
 
 # Index labels, adding metadata to the label column.
 # Fit on whole dataset to include all labels in index.
