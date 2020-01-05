@@ -12,6 +12,13 @@ from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAsse
 from pyspark.ml import Pipeline
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 
+############################################################################################
+#
+# uses synthetically enlarged Employee dataset (simulates Citizens welfare and income) from here
+# http://archive.ics.uci.edu/ml/datasets/Adult
+#
+############################################################################################
+
 print(sys.version)
 print(sys.version_info)
 #sys.exit(0)
