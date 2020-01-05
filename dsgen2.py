@@ -1,6 +1,8 @@
 from random import seed
 from random import random
 
+# Generates synthetic data in the standard LIBSVM data format specifically intended for Machine Learning
+
 seed(1)
 
 file = open("/opt/data/testfile.txt", "w")
