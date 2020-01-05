@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.regression import LinearRegression
 
-spark = SparkSession.builder.appName("FrequentItemSets").getOrCreate()
+spark = SparkSession.builder.appName("LinearRegression").getOrCreate()
 
 # Load training data
 training = spark.read.format("libsvm")\
