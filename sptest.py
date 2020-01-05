@@ -14,9 +14,12 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 
 ############################################################################################
 #
-# uses synthetically enlarged Employee dataset (simulates Citizens welfare and income) from here
+# uses synthetically enlarged Census dataset (simulates Citizens welfare and income patterns) from here
 # http://archive.ics.uci.edu/ml/datasets/Adult - this is the original/staring dataset which is then enlarged further
 # to stress and measure the performance of Data Science Workloads
+#
+# The Logistic Regression Prediction Model objective is to determine whether a person makes over 50K a year - very
+# relevant to social welfare gov departments.
 #
 ############################################################################################
 
@@ -62,5 +65,30 @@ train_df = pipeline.fit(train_df).transform(train_df)
 test_df = pipeline.fit(test_df).transform(test_df)
 
 
+train_df.printSchema()
+df = train_df.limit(5).toPandas()
+
+continuous_variables = ['age', 'fnlwgt', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week']
+assembler = VectorAssembler(
+    inputCols=['categorical-features', *continuous_variables],
+    outputCol='features'
+)
+train_df = assembler.transform(train_df)
+test_df = assembler.transform(test_df)
+
+train_df.limit(5).toPandas()['features'][0]
+
+indexer = StringIndexer(inputCol='salary', outputCol='label')
+train_df = indexer.fit(train_df).transform(train_df)
+test_df = indexer.fit(test_df).transform(test_df)
+train_df.limit(10).toPandas()['label']
+
+# Train the Model
+lr = LogisticRegression(featuresCol='features', labelCol='label')
+model = lr.fit(train_df)
+
+# Make Predictions
+pred = model.transform(test_df)
+pred.limit(10).toPandas()[['label', 'prediction']]
 
 spark.stop()
