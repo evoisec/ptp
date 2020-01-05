@@ -4,7 +4,7 @@ import psycopg2
 #create the db schema for spark rdbms performance testing
 
 conn = psycopg2.connect(user="sysadmin",
-                              password="pynative@#29",
+                              password="password123",
                               host="127.0.0.1",
                               port="5432",
                               database="postgres_db")
