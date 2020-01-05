@@ -1,3 +1,4 @@
+# conda install -c anaconda psycopg2
 import psycopg2
 
 #create the db schema for spark rdbms performance testing
