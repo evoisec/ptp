@@ -19,11 +19,11 @@ commands = (
     """
     CREATE TABLE CITIZEN (
             NIN INTEGER,
-            NAME VARCHAR(124),
+            NAME VARCHAR(300),
             BENEFITS INTEGER,
-            ADDRESS VARCHAR(124),
-            BALANCE DOUBLE,
-            ACC_NAME VARCHAR(124)
+            ADDRESS VARCHAR(300),
+            BALANCE double precision,
+            ACC_NAME VARCHAR(300)
     )
     """,
     """
@@ -39,14 +39,16 @@ try:
     # create table one by one
     for command in commands:
         cur.execute(command)
-    # close communication with the PostgreSQL database server
-    cur.close()
+
     # commit the changes
     conn.commit()
 
     #############################################
 
-    cur = conn.cursor()
+    sql = """INSERT INTO CITIZENS(NIN) VALUES(%i)"""
+    cur.execute(sql, (223,))
+    conn.commit()
+
     cur.execute("""SELECT * from CITIZEN""")
     rows = cur.fetchall()
 
