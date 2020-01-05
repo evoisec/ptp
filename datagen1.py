@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 
 from sklearn import linear_model, datasets
 
+# Synthetic Data Generator producing datasets susceptible to Realistic Linear Regression
 
 n_samples = 1000
 n_outliers = 50
