@@ -18,7 +18,8 @@ if __name__ == "__main__":
     # $example on$
     # loads data
     # dataset = spark.read.format("libsvm").load("file:/opt/data/gmm-data.txt/gmm-data.txt")
-    dataset = spark.read.format("libsvm").load("file:/opt/data/gmm-data.txt")
+    # dataset = spark.read.format("libsvm").load("file:/opt/data/gmm-data.txt")
+    dataset = spark.read.format("libsvm").load("file:/opt/data/testfile.txt")
 
     dataset.show(100)
 
