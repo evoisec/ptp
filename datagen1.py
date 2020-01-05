@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from sklearn import linear_model, datasets
+from sklearn import svm
+from sklearn.datasets import dump_svmlight_file
 
 # Synthetic Data Generator producing datasets susceptible to Realistic Linear Regression
 
@@ -16,3 +18,5 @@ X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=3,
 print(X)
 print(y)
 print(coef)
+
+dump_svmlight_file(X, y, "/opt/data/syntds.txt")
