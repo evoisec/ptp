@@ -14,58 +14,49 @@ conn = psycopg2.connect(
 #############################################
 
 
-def create_tables():
-    """ create tables in the PostgreSQL database"""
-    commands = (
-        """
-        CREATE TABLE CITIZEN (
-                NIN INTEGER,
-                NAME VARCHAR(124),
-                BENEFITS INTEGER,
-                ADDRESS VARCHAR(124),
-                BALANCE DOUBLE,
-                ACC_NAME VARCHAR(124)
-        )
-        """,
-        """
-        CREATE TABLE TEST (
-                id INTEGER PRIMARY KEY,
-                pid INTEGER NOT NULL,
+""" create tables in the PostgreSQL database"""
+commands = (
+    """
+    CREATE TABLE CITIZEN (
+            NIN INTEGER,
+            NAME VARCHAR(124),
+            BENEFITS INTEGER,
+            ADDRESS VARCHAR(124),
+            BALANCE DOUBLE,
+            ACC_NAME VARCHAR(124)
+    )
+    """,
+    """
+    CREATE TABLE TEST (
+            id INTEGER PRIMARY KEY,
+            pid INTEGER NOT NULL,
 
-        )
-        """)
+    )
+    """)
 
-    try:
+try:
+    cur = conn.cursor()
+    # create table one by one
+    for command in commands:
+        cur.execute(command)
+    # close communication with the PostgreSQL database server
+    cur.close()
+    # commit the changes
+    conn.commit()
 
+    #############################################
 
-        cur = conn.cursor()
-        # create table one by one
-        for command in commands:
-            cur.execute(command)
-        # close communication with the PostgreSQL database server
-        cur.close()
-        # commit the changes
-        conn.commit()
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
+    cur = conn.cursor()
+    cur.execute("""SELECT * from CITIZEN""")
+    rows = cur.fetchall()
 
+    # Print out the results
+    for row in rows:
+        print(row)
 
-if __name__ == '__main__':
-    create_tables()
+except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
+finally:
+    if conn is not None:
+        conn.close()
 
-
-#############################################
-
-cur = conn.cursor()
-cur.execute("""SELECT * from cit""")
-rows = cur.fetchall()
-
-# Print out the results
-for row in rows:
-    print(row)
-
-# Close the connection when finished
-conn.close()
