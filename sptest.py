@@ -15,7 +15,8 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 ############################################################################################
 #
 # uses synthetically enlarged Employee dataset (simulates Citizens welfare and income) from here
-# http://archive.ics.uci.edu/ml/datasets/Adult
+# http://archive.ics.uci.edu/ml/datasets/Adult - this is the original/staring dataset which is then enlarged further
+# to stress and measure the performance of Data Science Workloads
 #
 ############################################################################################
 
