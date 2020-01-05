@@ -45,9 +45,9 @@ try:
 
     #############################################
 
-    sql = """INSERT INTO CITIZENS(NIN) VALUES(%i)"""
-    cur.execute(sql, (223,))
-    conn.commit()
+    postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS, ADDRESS, BALANCE, ACC_NAME) VALUES (%s,%s,%s,%s,%s,%s)"""
+    record_to_insert = (5, 'asdasd', 950, 'assdad',0.34324,'asdsad')
+    cur.execute(postgres_insert_query, record_to_insert)
 
     cur.execute("""SELECT * from CITIZEN""")
     rows = cur.fetchall()
