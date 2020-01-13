@@ -33,9 +33,9 @@ fs = pa.hdfs.connect("localhost" , user="cloudera")
 # write to hadoop file
 with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
-    for i in range(20):
+    for i in range(1, 30):
 
         f.write((str(i) + ', foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n').encode('UTF-8')  )
 
-
+fs.close()
 
