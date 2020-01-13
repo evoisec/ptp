@@ -1,6 +1,7 @@
 import psycopg2
 import uuid
 import random
+import string
 
 ###################################################################
 #
@@ -9,6 +10,10 @@ import random
 # each with different ranges for the primary key
 #
 ###################################################################
+
+def randString(stringLength):
+    res = ''.join(random.choices(string.ascii_uppercase + string.digits, k=stringLength))
+    return res
 
 try:
     connection = psycopg2.connect(user="evo",
@@ -29,11 +34,11 @@ try:
     postgres_delete_query = """DELETE FROM CITIZEN"""
     cursor.execute(postgres_delete_query)
 
-    postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS) VALUES (%s,%s,%s)"""
+    postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS, ADDRESS) VALUES (%s,%s,%s,%s)"""
 
-    #To Do: implement optimization by inserting batches of records at once, rather than individual records
+    # To Do: implement optimization by inserting batches of records at once, rather than individual records
     for nin in range(0, 30):
-        record_to_insert = (nin, str(uuid.uuid4()), random.random())
+        record_to_insert = (nin, str(uuid.uuid4()), random.random(), randString(10))
         cursor.execute(postgres_insert_query, record_to_insert)
 
     connection.commit()
