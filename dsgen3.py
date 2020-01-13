@@ -1,4 +1,5 @@
 import pyarrow as pa
+import random
 
 ##################################################################################################################################
 #
@@ -28,6 +29,8 @@ import pyarrow as pa
 #extra Key/Value pairs for config; Will override any
 #hdfs-site.xml properties
 
+# 0 1:0.2550690257394217 2:0.49543508709194095 3:0.4494910647887381
+
 #kerb_ticket=kerb_ticket
 fs = pa.hdfs.connect("localhost", user="cloudera")
 
@@ -35,9 +38,9 @@ fs = pa.hdfs.connect("localhost", user="cloudera")
 # open and write to hdfs file
 with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
-    for rowID in range(1, 30):
+    for rowID in range(0, 30):
 
-        f.write( (str(rowID) + ', foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n').encode('UTF-8') )
+        f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
 
 fs.close()
 
