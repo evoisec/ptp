@@ -26,14 +26,16 @@ import pyarrow as pa
 #extra Key/Value pairs for config; Will override any
 #hdfs-site.xml properties
 
+#kerb_ticket=kerb_ticket
 fs = pa.hdfs.connect("localhost" , user="cloudera")
 
-# file access modes: rb, wb, ab
+# hdfs file access modes: rb, wb, ab
 # write to hadoop file
-with fs.open("/user/cloudera/synt/part-00001-3059cdce-7ae9-478c-8e1e-03dabc916a5e-c000.csv", 'ab') as f:
+with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
-    f.write(b'foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n')
-    f.write(b'foobarbaz, sdfsdf, dsfdsfd, dsfdsf\n')
-    f.write(b'foobarbaz, sdfsdf, dsfdsfd, dsfdsf\n')
+    for i in range(20):
+
+        f.write((str(i) + ', foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n').encode('UTF-8')  )
+
 
 
