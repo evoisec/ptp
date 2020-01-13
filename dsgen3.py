@@ -1,12 +1,12 @@
 import pyarrow as pa
 
-######################################################################
+##################################################################################################################################
 #
 # Tool for generation of synthetic data directly on HDFS. Supports generation of squentially ordered data
 # Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
 # generate synthetic data fast
 #
-######################################################################
+###################################################################################################################################
 
 #Connect to an HDFS cluster. All parameters are optional and should
 #only be set if the defaults need to be overridden.
