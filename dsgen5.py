@@ -1,9 +1,12 @@
 import psycopg2
-from psycopg2 import Error
+import uuid
+import random
 
 ###################################################################
 #
 # tool to generate table data for performance testing in PostgressSQL
+# can be run on multiple threads (from e.g. multiple terminal windows) and
+# each with different ranges for the primary key
 #
 ###################################################################
 
@@ -28,8 +31,9 @@ try:
 
     postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS) VALUES (%s,%s,%s)"""
 
+    #To Do: implement optimization by inserting batches of records at once, rather than individual records
     for nin in range(0, 30):
-        record_to_insert = (nin, 'John Evans', 950)
+        record_to_insert = (nin, str(uuid.uuid4()), random.random())
         cursor.execute(postgres_insert_query, record_to_insert)
 
     connection.commit()
