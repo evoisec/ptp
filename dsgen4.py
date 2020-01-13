@@ -23,6 +23,8 @@ try:
     record = cursor.fetchone()
     print("You are connected to - ", record,"\n")
 
+    #create_table_query = '''DROP TABLE IF EXISTS CITIZEN; '''
+
     create_table_query = '''CREATE TABLE IF NOT EXISTS CITIZEN
           (NIN INT PRIMARY KEY     NOT NULL,
           NAME           TEXT    NOT NULL,
