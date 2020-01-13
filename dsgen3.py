@@ -3,6 +3,8 @@ import pyarrow as pa
 ######################################################################
 #
 # Tool for generation of synthetic data directly on HDFS. Supports generation of squentially ordered data
+# Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
+# generate synthetic data fast
 #
 ######################################################################
 
@@ -30,12 +32,12 @@ import pyarrow as pa
 fs = pa.hdfs.connect("localhost" , user="cloudera")
 
 # hdfs file access modes: rb, wb, ab
-# write to hadoop file
+# open and write to hdfs file
 with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
-    for i in range(1, 30):
+    for rowID in range(1, 30):
 
-        f.write((str(i) + ', foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n').encode('UTF-8')  )
+        f.write( (str(rowID) + ', foobarbaz, dsfsfsf, dsfdsfsdf, dsfdsfd\n').encode('UTF-8') )
 
 fs.close()
 
