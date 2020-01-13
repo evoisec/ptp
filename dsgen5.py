@@ -34,11 +34,11 @@ try:
     postgres_delete_query = """DELETE FROM CITIZEN"""
     cursor.execute(postgres_delete_query)
 
-    postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS, ADDRESS) VALUES (%s,%s,%s,%s)"""
+    postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS, ADDRESS, BALANCE, ACC_NAME) VALUES (%s,%s,%s,%s,%s,%s)"""
 
     # To Do: implement optimization by inserting batches of records at once, rather than individual records
     for nin in range(0, 30):
-        record_to_insert = (nin, str(uuid.uuid4()), random.random(), randString(10))
+        record_to_insert = (nin, str(uuid.uuid4()), random.random(), randString(10), random.random(), randString(20))
         cursor.execute(postgres_insert_query, record_to_insert)
 
     connection.commit()
