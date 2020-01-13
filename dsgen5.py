@@ -23,6 +23,9 @@ try:
     record = cursor.fetchone()
     print("You are connected to - ", record,"\n")
 
+    postgres_delete_query = """DELETE FROM CITIZEN"""
+    cursor.execute(postgres_delete_query)
+
     postgres_insert_query = """ INSERT INTO CITIZEN (NIN, NAME, BENEFITS) VALUES (%s,%s,%s)"""
 
     for nin in range(0, 30):
@@ -32,7 +35,7 @@ try:
     connection.commit()
     count = cursor.rowcount
     #print (count, "Record inserted successfully into mobile table")
-    print(nin, "Record inserted successfully into mobile table")
+    print(nin+1, "Record inserted successfully into mobile table")
 
 except (Exception, psycopg2.Error) as error :
     if(connection):
