@@ -29,7 +29,7 @@ import pyarrow as pa
 #hdfs-site.xml properties
 
 #kerb_ticket=kerb_ticket
-fs = pa.hdfs.connect("localhost" , user="cloudera")
+fs = pa.hdfs.connect("localhost", user="cloudera")
 
 # hdfs file access modes: rb, wb, ab
 # open and write to hdfs file
