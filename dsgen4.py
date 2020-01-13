@@ -30,7 +30,9 @@ try:
           (NIN INT PRIMARY KEY     NOT NULL,
           NAME           TEXT    NOT NULL,
           BENEFITS       REAL,
-          ADDRESS        TEXT    NOT NULL); '''
+          ADDRESS        TEXT    NOT NULL,
+          BALANCE        REAL,
+          ACC_NAME       TEXT    NOT NULL); '''
 
     cursor.execute(create_table_query)
     connection.commit()
