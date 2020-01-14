@@ -4,8 +4,11 @@ from pyspark.ml.regression import LinearRegression
 spark = SparkSession.builder.appName("LinearRegression").getOrCreate()
 
 # Load training data
-training = spark.read.format("libsvm")\
-    .load("data.txt")
+training = spark.read.format("libsvm").option("numFeatures", "3").load("file:/opt/data/syntds.txt")
+# .load("file:/opt/data/sample_linear_regression_data.txt")
+
+#training.show()
+#exit(0)
 
 lr = LinearRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
 
