@@ -19,7 +19,8 @@ if __name__ == "__main__":
     # loads data
     # dataset = spark.read.format("libsvm").load("file:/opt/data/gmm-data.txt/gmm-data.txt")
     # dataset = spark.read.format("libsvm").load("file:/opt/data/gmm-data.txt")
-    dataset = spark.read.format("libsvm").load("file:/opt/data/testfile.txt")
+    # dataset = spark.read.format("libsvm").load("file:/opt/data/testfile.txt")
+    dataset = spark.read.format("libsvm").load("file:/home/cloudera/syntdata.txt")
 
     dataset.show(100)
 
