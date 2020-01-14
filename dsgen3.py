@@ -7,6 +7,9 @@ import random
 # Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
 # generate synthetic data fast
 #
+# Supports the follwoing Data Science Workloads:
+# gmm.py
+#
 ###################################################################################################################################
 
 #Connect to an HDFS cluster. All parameters are optional and should
