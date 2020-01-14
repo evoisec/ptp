@@ -12,7 +12,6 @@ from sklearn.datasets import dump_svmlight_file
 # LinearRegression.py
 
 n_samples = 1000
-n_outliers = 50
 
 X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=3,
                                       n_informative=1, noise=10,
@@ -22,4 +21,4 @@ print(X)
 print(y)
 print(coef)
 
-dump_svmlight_file(X, y, "/opt/data/syntds.txt", zero_based=False)
+dump_svmlight_file(X, y, "/opt/data/linear-regression.txt", zero_based=False)
