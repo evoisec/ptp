@@ -23,4 +23,4 @@ print(X)
 print(y)
 print(coef)
 
-dump_svmlight_file(X, y, "/opt/data/syntds.txt")
+dump_svmlight_file(X, y, "/opt/data/syntds.txt", zero_based=False)
