@@ -9,7 +9,7 @@ from sklearn.datasets import dump_svmlight_file
 # Generates synthetic data in the standard LIBSVM data format specifically intended for Machine Learning
 
 # Supports the follwoing Data Science Workloads:
-# LinearRegression.py
+# LinearRegression.py (and ANY other prediction type of ML model)
 
 n_samples = 1000
 
