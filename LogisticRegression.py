@@ -1,13 +1,13 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.classification import LogisticRegression
 
-spark = SparkSession.builder.appName("FrequentItemSets").getOrCreate()
+spark = SparkSession.builder.appName("LogisticRegression").getOrCreate()
 
 # Load training data
 training = spark \
     .read \
     .format("libsvm") \
-    .load("data.txt")
+    .load("file:/root/PycharmProjects/ptp/Data/logistic-regression.txt")
 
 lr = LogisticRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
 
