@@ -7,7 +7,7 @@ spark = SparkSession.builder.appName("LogisticRegression").getOrCreate()
 training = spark \
     .read \
     .format("libsvm") \
-    .load("file:/root/PycharmProjects/ptp/Data/logistic-regression.txt")
+    .load("file:/root/PycharmProjects/ptp/Data/classification.txt")
 
 lr = LogisticRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
 
