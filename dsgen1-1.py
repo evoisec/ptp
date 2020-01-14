@@ -7,11 +7,11 @@ from sklearn.datasets import dump_svmlight_file
 
 from sklearn.datasets import make_moons, make_circles, make_classification
 
-# Synthetic Data Generator producing datasets susceptible to Realistic Linear Regression
+# Synthetic Data Generator producing datasets susceptible to Classification ML Models
 # Generates synthetic data in the standard LIBSVM data format specifically intended for Machine Learning
 
 # Supports the follwoing Data Science Workloads:
-# LinearRegression.py
+# LogisticRegression.py
 
 n_samples = 1000
 
