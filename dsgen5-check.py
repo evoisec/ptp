@@ -13,12 +13,24 @@ def randString(stringLength):
     res = ''.join(random.choices(string.ascii_uppercase + string.digits, k=stringLength))
     return res
 
+Config = {}
+
+f = open('db.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
 try:
-    connection = psycopg2.connect(user="evo",
-                                  password="Pwd1234",
-                                  host="127.0.0.1",
-                                  port="5432",
-                                  database="perftesting")
+    connection = psycopg2.connect(user=Config['user'],
+                                  password=Config['password'],
+                                  host=Config['host'],
+                                  port=Config['port'],
+                                  database=Config['database'])
 
     cursor = connection.cursor()
     postgreSQL_select_Query = "select * from citizen limit 10"
