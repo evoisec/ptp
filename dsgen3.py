@@ -44,8 +44,10 @@ with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
     for rowID in range(0, 30):
 
+        # generates labels for Feature Vectors in the form of sequential numbers
         #f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
 
+        # generates labels for Feature Vectors in the form of unique numbers, which are gurateed to be unique through cryptographic means
         f.write(str(str(uuid.uuid4().int)) + " 1:" + str(random()) + " 2:" + str(random()) + " 3:" + str(random()) + "\n")
 
 fs.close()
