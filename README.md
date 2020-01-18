@@ -1,5 +1,5 @@
 # ptp
-Data Science Focused, Hadoop Performance Testing & Measurement Suite - DS Workload Emulation, while remaining Close to the Metal - Python Based
+Data Science Focused, Hadoop Performance Testing & Measurement Suite - Data Science Workload Emulation, while remaining Close to the Metal - Python Based
 
 Enables the generation of Actionable (Measurement) Information supporting Informed Capacity Planning as well as Predictive Models for Performance Scaling and Cluster Sizing  
 
