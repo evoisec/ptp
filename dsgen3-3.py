@@ -2,6 +2,7 @@ import pyarrow as pa
 import uuid
 import random
 from datetime import datetime, timedelta
+import string
 
 ##################################################################################################################################
 #
@@ -37,6 +38,10 @@ from datetime import datetime, timedelta
 start = datetime.now()
 end = start + timedelta(days=730)
 
+def randString(stringLength):
+    res = ''.join(random.choices(string.ascii_letters + string.digits, k=stringLength))
+    return res
+
 #kerb_ticket=kerb_ticket
 fs = pa.hdfs.connect("localhost", user="cloudera")
 
@@ -50,11 +55,15 @@ with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
 
         random_date = start + (end - start) * random.random()
 
-        # generates labels for Feature Vectors in the form of sequential numbers
-        #f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
+        f.write(( str(rowID) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
+                 + str(random_date.date()) + '\n').encode('UTF-8'))
 
         # generates labels for Feature Vectors in the form of unique numbers, which are gurateed to be unique through cryptographic means
-        f.write((str(uuid.uuid4().int) + ', ' + str(random.random()) + ', ' + str(random.random()) + ', ' + str(random.random()) + ', ' + str(random_date.date()) + '\n').encode('UTF-8'))
+        #f.write((str(uuid.uuid4().int) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
+                 #+ str(random_date.date()) + '\n').encode('UTF-8'))
+
+        #f.write((str(uuid.uuid4()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
+                 #+ str(random_date.date()) + '\n').encode('UTF-8'))
 
 fs.close()
 
