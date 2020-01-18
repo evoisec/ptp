@@ -9,8 +9,7 @@ from datetime import datetime, timedelta
 # Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
 # generate synthetic data fast
 #
-# Supports the following Data Science Workloads:
-# gmm.py
+# Generates business datasets for performance testing of ETL pipelines and Algorithmic Business Analytics workloads
 #
 ###################################################################################################################################
 
@@ -34,7 +33,6 @@ from datetime import datetime, timedelta
 #extra Key/Value pairs for config; Will override any
 #hdfs-site.xml properties
 
-# 0 1:0.2550690257394217 2:0.49543508709194095 3:0.4494910647887381
 
 start = datetime.now()
 end = start + timedelta(days=730)
@@ -45,6 +43,8 @@ fs = pa.hdfs.connect("localhost", user="cloudera")
 # hdfs file access modes: rb, wb, ab
 # open and write to hdfs file
 with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
+
+    f.write(("NIN" + ', ' + 'NAME' + ', ' + 'BENEFITS' + ', ' + 'ADDRESS' + ', ' + 'BALANCE' +  ', ' + 'ACC_NAME' + ', ' + 'DATE' + '\n').encode('UTF-8'))
 
     for rowID in range(0, 30):
 
