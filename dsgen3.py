@@ -8,7 +8,7 @@ import random
 # Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
 # generate synthetic data fast
 #
-# Supports the follwoing Data Science Workloads:
+# Supports the following Data Science Workloads:
 # gmm.py
 #
 ###################################################################################################################################
@@ -48,7 +48,7 @@ with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
         #f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
 
         # generates labels for Feature Vectors in the form of unique numbers, which are gurateed to be unique through cryptographic means
-        f.write(str(str(uuid.uuid4().int)) + " 1:" + str(random()) + " 2:" + str(random()) + " 3:" + str(random()) + "\n")
+        f.write((str(uuid.uuid4().int) + ' 1:' + str(random.random()) + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8'))
 
 fs.close()
 
