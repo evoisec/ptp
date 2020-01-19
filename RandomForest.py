@@ -1,43 +1,41 @@
-from pyspark.sql import SparkSession
+"""
+Random Forest Regression.
+"""
+from __future__ import print_function
 
-from pyspark.ml import Pipeline
-from pyspark.ml.regression import RandomForestRegressor
-from pyspark.ml.feature import VectorIndexer
-from pyspark.ml.evaluation import RegressionEvaluator
+from pyspark import SparkContext
+# $example on$
+from pyspark.mllib.tree import RandomForest, RandomForestModel
+from pyspark.mllib.util import MLUtils
+# $example off$
 
-spark = SparkSession.builder.appName("LogisticRegression").getOrCreate()
+if __name__ == "__main__":
+    sc = SparkContext(appName="PythonRandomForestRegression")
+    # $example on$
+    # Load and parse the data file into an RDD of LabeledPoint.
+    # data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/classification.txt")
+    data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/linear-regression.txt")
+    # Split the data into training and test sets (30% held out for testing)
+    (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
-# Load and parse the data file, converting it to a DataFrame.
-data = spark.read.format("libsvm").load("data.txt")
+    # Train a RandomForest model.
+    #  Empty categoricalFeaturesInfo indicates all features are continuous.
+    #  Note: Use larger numTrees in practice.
+    #  Setting featureSubsetStrategy="auto" lets the algorithm choose.
+    model = RandomForest.trainRegressor(trainingData, categoricalFeaturesInfo={},
+                                        numTrees=3, featureSubsetStrategy="auto",
+                                        impurity='variance', maxDepth=4, maxBins=32)
 
-# Automatically identify categorical features, and index them.
-# Set maxCategories so features with > 4 distinct values are treated as continuous.
-featureIndexer =\
-    VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=4).fit(data)
+    # Evaluate model on test instances and compute test error
+    predictions = model.predict(testData.map(lambda x: x.features))
+    labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+    testMSE = labelsAndPredictions.map(lambda lp: (lp[0] - lp[1]) * (lp[0] - lp[1])).sum() /\
+        float(testData.count())
+    print('Test Mean Squared Error = ' + str(testMSE))
+    print('Learned regression forest model:')
+    print(model.toDebugString())
 
-# Split the data into training and test sets (30% held out for testing)
-(trainingData, testData) = data.randomSplit([0.7, 0.3])
-
-# Train a RandomForest model.
-rf = RandomForestRegressor(featuresCol="indexedFeatures")
-
-# Chain indexer and forest in a Pipeline
-pipeline = Pipeline(stages=[featureIndexer, rf])
-
-# Train model.  This also runs the indexer.
-model = pipeline.fit(trainingData)
-
-# Make predictions.
-predictions = model.transform(testData)
-
-# Select example rows to display.
-predictions.select("prediction", "label", "features").show(5)
-
-# Select (prediction, true label) and compute test error
-evaluator = RegressionEvaluator(
-    labelCol="label", predictionCol="prediction", metricName="rmse")
-rmse = evaluator.evaluate(predictions)
-print("Root Mean Squared Error (RMSE) on test data = %g" % rmse)
-
-rfModel = model.stages[1]
-print(rfModel)  # summary only
+    # Save and load model
+    #model.save(sc, "target/tmp/myRandomForestRegressionModel")
+    #sameModel = RandomForestModel.load(sc, "target/tmp/myRandomForestRegressionModel")
+    # $example off$
