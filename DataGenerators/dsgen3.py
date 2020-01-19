@@ -1,6 +1,6 @@
 import pyarrow as pa
 import uuid
-import random
+from random import *
 
 ##################################################################################################################################
 #
@@ -10,6 +10,9 @@ import random
 #
 # Supports the following Data Science Workloads:
 # gmm.py
+# Bayes.py
+# svm.py
+# all classification type of data science workloads
 #
 ###################################################################################################################################
 
@@ -48,7 +51,10 @@ with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
         #f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
 
         # generates labels for Feature Vectors in the form of unique numbers, which are gurateed to be unique through cryptographic means
-        f.write((str(uuid.uuid4().int) + ' 1:' + str(random.random()) + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8'))
+        #f.write((str(uuid.uuid4().int) + ' 1:' + str(random.random()) + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8'))
+
+        f.write("0" + " 1:" + str(gauss(1, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + "\n")
+        f.write("1" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + "\n")
 
 fs.close()
 
