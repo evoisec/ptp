@@ -22,7 +22,7 @@ if __name__ == "__main__":
     dataset = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification.txt")
 
     # Trains a k-means model.
-    kmeans = KMeans().setK(2).setSeed(1)
+    kmeans = KMeans().setK(3).setSeed(1)
     model = kmeans.fit(dataset)
 
     # Make predictions
