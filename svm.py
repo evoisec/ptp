@@ -11,7 +11,7 @@ from pyspark.ml.classification import LinearSVC
 spark = SparkSession.builder.appName("SVM").getOrCreate()
 
 # Load training data
-training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification.txt")
+training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification-2.txt")
 
 lsvc = LinearSVC(maxIter=10, regParam=0.1)
 
