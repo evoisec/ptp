@@ -1,10 +1,14 @@
+"""
+Support Vector Machine.
+"""
+
 from pyspark.sql import SparkSession
 from pyspark.ml.classification import LinearSVC
 
-spark = SparkSession.builder.appName("FrequentItemSets").getOrCreate()
+spark = SparkSession.builder.appName("SVM").getOrCreate()
 
 # Load training data
-training = spark.read.format("libsvm").load("data.txt")
+training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification.txt")
 
 lsvc = LinearSVC(maxIter=10, regParam=0.1)
 
