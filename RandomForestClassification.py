@@ -10,7 +10,7 @@ from pyspark.mllib.util import MLUtils
 # $example off$
 
 if __name__ == "__main__":
-    sc = SparkContext(appName="PythonRandomForestClassification")
+    sc = SparkContext(appName="RandomForestClassification")
     # $example on$
     # Load and parse the data file into an RDD of LabeledPoint.
     data = MLUtils.loadLibSVMFile(sc, 'file:/root/PycharmProjects/ptp/Data/classification.txt')

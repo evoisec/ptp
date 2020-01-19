@@ -10,11 +10,11 @@ from pyspark.mllib.util import MLUtils
 # $example off$
 
 if __name__ == "__main__":
-    sc = SparkContext(appName="PythonRandomForestRegression")
+    sc = SparkContext(appName="RandomForestRegression")
     # $example on$
     # Load and parse the data file into an RDD of LabeledPoint.
     # data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/classification.txt")
-    data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/linear-regression.txt")
+    data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/regression.txt")
     # Split the data into training and test sets (30% held out for testing)
     (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
