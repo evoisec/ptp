@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     # $example on$
     # Loads data.
-    dataset = spark.read.format("libsvm").load("kmeans_data.txt")
+    dataset = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification.txt")
 
     # Trains a k-means model.
     kmeans = KMeans().setK(2).setSeed(1)
