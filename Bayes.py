@@ -17,7 +17,7 @@ from pyspark.mllib.util import MLUtils
 
 if __name__ == "__main__":
 
-    sc = SparkContext(appName="PythonNaiveBayes")
+    sc = SparkContext(appName="NaiveBayes")
 
     # $example on$
     # Load and parse the data file.
