@@ -1,5 +1,8 @@
 """
 Support Vector Machine.
+
+Binary Classification
+
 """
 
 from pyspark.sql import SparkSession
