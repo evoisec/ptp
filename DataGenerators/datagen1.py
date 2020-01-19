@@ -8,10 +8,22 @@ from sklearn.datasets import dump_svmlight_file
 # Synthetic Data Generator producing datasets susceptible to Realistic Linear Regression
 # Generates synthetic data in the standard LIBSVM data format specifically intended for Machine Learning
 
-# Supports the follwoing Data Science Workloads:
+# Supports the following Data Science Workloads:
 # LinearRegression.py (and ANY other prediction type of ML model)
 
-n_samples = 1000
+Config = {}
+
+f = open('datagen1.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+n_samples = int(Config['number.samples'])
 
 X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=3,
                                       n_informative=1, noise=10,
