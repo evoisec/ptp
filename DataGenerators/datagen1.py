@@ -11,6 +11,9 @@ from sklearn.datasets import dump_svmlight_file
 # Supports the following Data Science Workloads:
 # LinearRegression.py (and ANY other prediction type of ML model)
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
+
 Config = {}
 
 f = open('datagen1.cfg', 'r')
@@ -24,10 +27,15 @@ while (line != ""):
     line = f.readline()
 
 n_samples = int(Config['number.samples'])
+n_features = int(Config['number.features'])
+n_informative = int(Config['number.informative'])
+noise = int(Config['noise'])
+coef = str2bool(Config['coef'])
+random_state = int(Config['random.state'])
 
-X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=3,
-                                      n_informative=1, noise=10,
-                                      coef=True, random_state=0)
+X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=n_features,
+                                      n_informative=n_informative, noise=noise,
+                                      coef=coef, random_state=random_state)
 
 print(X)
 print(y)
