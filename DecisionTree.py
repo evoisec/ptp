@@ -1,47 +1,39 @@
-from pyspark.sql import SparkSession
+"""
+Decision Tree Regression.
+"""
+from __future__ import print_function
 
-from pyspark.ml import Pipeline
-from pyspark.ml.classification import DecisionTreeClassifier
-from pyspark.ml.feature import StringIndexer, VectorIndexer
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark import SparkContext
+# $example on$
+from pyspark.mllib.tree import DecisionTree, DecisionTreeModel
+from pyspark.mllib.util import MLUtils
+# $example off$
 
-spark = SparkSession.builder.appName("DecisionTree").getOrCreate()
+if __name__ == "__main__":
 
-# Load the data stored in LIBSVM format as a DataFrame.
-data = spark.read.format("libsvm").load("data.txt")
+    sc = SparkContext(appName="PythonDecisionTreeRegression")
 
-# Index labels, adding metadata to the label column.
-# Fit on whole dataset to include all labels in index.
-labelIndexer = StringIndexer(inputCol="label", outputCol="indexedLabel").fit(data)
-# Automatically identify categorical features, and index them.
-# We specify maxCategories so features with > 4 distinct values are treated as continuous.
-featureIndexer =\
-    VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=4).fit(data)
+    # $example on$
+    # Load and parse the data file into an RDD of LabeledPoint.
+    data = MLUtils.loadLibSVMFile(sc, 'file:/root/PycharmProjects/ptp/Data/linear-regression.txt')
+    # Split the data into training and test sets (30% held out for testing)
+    (trainingData, testData) = data.randomSplit([0.7, 0.3])
 
-# Split the data into training and test sets (30% held out for testing)
-(trainingData, testData) = data.randomSplit([0.7, 0.3])
+    # Train a DecisionTree model.
+    #  Empty categoricalFeaturesInfo indicates all features are continuous.
+    model = DecisionTree.trainRegressor(trainingData, categoricalFeaturesInfo={},
+                                        impurity='variance', maxDepth=5, maxBins=32)
 
-# Train a DecisionTree model.
-dt = DecisionTreeClassifier(labelCol="indexedLabel", featuresCol="indexedFeatures")
+    # Evaluate model on test instances and compute test error
+    predictions = model.predict(testData.map(lambda x: x.features))
+    labelsAndPredictions = testData.map(lambda lp: lp.label).zip(predictions)
+    testMSE = labelsAndPredictions.map(lambda lp: (lp[0] - lp[1]) * (lp[0] - lp[1])).sum() /\
+        float(testData.count())
+    print('Test Mean Squared Error = ' + str(testMSE))
+    print('Learned regression tree model:')
+    print(model.toDebugString())
 
-# Chain indexers and tree in a Pipeline
-pipeline = Pipeline(stages=[labelIndexer, featureIndexer, dt])
-
-# Train model.  This also runs the indexers.
-model = pipeline.fit(trainingData)
-
-# Make predictions.
-predictions = model.transform(testData)
-
-# Select example rows to display.
-predictions.select("prediction", "indexedLabel", "features").show(5)
-
-# Select (prediction, true label) and compute test error
-evaluator = MulticlassClassificationEvaluator(
-    labelCol="indexedLabel", predictionCol="prediction", metricName="accuracy")
-accuracy = evaluator.evaluate(predictions)
-print("Test Error = %g " % (1.0 - accuracy))
-
-treeModel = model.stages[2]
-# summary only
-print(treeModel)
+    # Save and load model
+    #model.save(sc, "target/tmp/myDecisionTreeRegressionModel")
+    #sameModel = DecisionTreeModel.load(sc, "target/tmp/myDecisionTreeRegressionModel")
+    # $example off$
