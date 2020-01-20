@@ -11,13 +11,29 @@ from pyspark.mllib.util import MLUtils
 
 if __name__ == "__main__":
 
+    Config = {}
+
+    f = open('DecisionTree.cfg', 'r')
+    line = f.readline()
+    while (line != ""):
+        line = line.rstrip()
+        x = line.split('=')
+        print(x[0])
+        print(x[1])
+        Config[x[0]] = x[1]
+        line = f.readline()
+
+    file = Config['file']
+    trainRatio = float(Config['train.ratio'])
+    testRatio = float(Config['test.ratio'])
+
     sc = SparkContext(appName="DecisionTreeRegression")
 
     # $example on$
     # Load and parse the data file into an RDD of LabeledPoint.
-    data = MLUtils.loadLibSVMFile(sc, 'file:/root/PycharmProjects/ptp/Data/regression.txt')
+    data = MLUtils.loadLibSVMFile(sc, file)
     # Split the data into training and test sets (30% held out for testing)
-    (trainingData, testData) = data.randomSplit([0.7, 0.3])
+    (trainingData, testData) = data.randomSplit([trainRatio, testRatio])
 
     # Train a DecisionTree model.
     #  Empty categoricalFeaturesInfo indicates all features are continuous.
