@@ -22,18 +22,34 @@ import uuid
 
 seed(1)
 
-file = open("/root/PycharmProjects/ptp/Data/regression-2.txt", "w")
+Config = {}
 
-i =1
-a = 2
-b = 4
-c = 5
-d = 7
+f = open('datagen2-3.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
 
-mlType = "regression"
+file = open(Config['file'], "w")
+
+i = int(Config['i'])
+a = int(Config['a'])
+b = int(Config['b'])
+c = int(Config['c'])
+d = int(Config['d'])
+
+mlType = Config['ml.type']
+
+#note, in Python 3, integers have unlimited precision
+range1 = int(Config['range1'])
+range2 = int(Config['range2'])
 
 # if necessary, do on a seperate thread or process / shell for the next segment e.g. for x in range(11, 100):
-for x in range(100):
+for x in range(range1, range2):
 
     # generates labels for Feature Vectors in the form of sequential numbers
     #file.write(str(x) + " 1:" + str(random()) + " 2:" + str(random()) + " 3:" + str(random()) + "\n")
