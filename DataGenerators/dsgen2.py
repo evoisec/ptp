@@ -10,6 +10,9 @@ import uuid
 # Scikit-learn equivalent since it generates nd writes the dataset one feature vector at a time. Hence it can generate
 # # Data Scinece datasets of any size .....
 #
+# Note - this program is a standalone process, NOT a Spark Job. However it can also be executed on multiple
+# threads, as each is given a seperate range of Feature Vectors to generate
+#
 # @author: Evo Eftimov
 #
 #############################################################################################################
