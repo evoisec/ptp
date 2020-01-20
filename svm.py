@@ -24,11 +24,16 @@ file = Config['file']
 trainRatio = float(Config['train.ratio'])
 testRatio = float(Config['test.ratio'])
 maxIter = int(Config['max.iterations'])
+partitions = int(Config['partitions'])
 
 spark = SparkSession.builder.appName("SVM").getOrCreate()
 
-# Load training data
-training = spark.read.format("libsvm").load(file)
+if (partitions == 0):
+    training = spark.read.format("libsvm").load(file)
+
+if (partitions != 0):
+    # Load training data
+    training = spark.read.format("libsvm").load(file).repartition(3)
 
 lsvc = LinearSVC(maxIter=maxIter, regParam=0.1)
 
