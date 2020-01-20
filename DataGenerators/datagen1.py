@@ -32,6 +32,7 @@ n_informative = int(Config['number.informative'])
 noise = int(Config['noise'])
 coef = str2bool(Config['coef'])
 random_state = int(Config['random.state'])
+file=Config['file']
 
 X, y, coef = datasets.make_regression(n_samples=n_samples, n_features=n_features,
                                       n_informative=n_informative, noise=noise,
@@ -41,4 +42,4 @@ print(X)
 print(y)
 print(coef)
 
-dump_svmlight_file(X, y, "/opt/data/linear-regression.txt", zero_based=False)
+dump_svmlight_file(X, y, file, zero_based=False)
