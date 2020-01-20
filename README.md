@@ -5,9 +5,9 @@ Measures the peromance of all key Data Science / Machine Learning Algorithms / M
 
 Folder contents:
 
-Data - contains sample datasets, specifically generated for Data Science Wrokloads 
+The folder Data - contains sample datasets, specifically generated for Data Science Workloads by custom developed Synthetic Data Generators
 
-DataGenerators - contains Syntehtic Data Generators implementing formal Mathematical Models emulating data containing Linear and Classification/CLustering Data Relationships/Patterns. This in turm makes the performance testing of Data Science Workloads realistic
+The folder DataGenerators - contains Synthetic Data Generators implementing formal Mathematical Models emulating data containing realistic Linear and Classification/Clustering Relationships/Patterns. This in turn makes the performance testing of Data Science Workloads realistic and enables the models to converge. There is no restriction on how big the generated DS datasets can be ….. (and it all gets dumped directly on HDFS, where there are no size limits in terms of storage either)
 
 Supported Data Science / Machine Learning Models/Algorithms:
 
