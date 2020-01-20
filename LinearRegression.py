@@ -1,17 +1,34 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.regression import LinearRegression
 
+Config = {}
+
+f = open('LinearRegression.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+trainRatio = float(Config['train.ratio'])
+testRatio = float(Config['test.ratio'])
+maxIter = int(Config['max.iterations'])
+
 spark = SparkSession.builder.appName("LinearRegression").getOrCreate()
 
 # Load training data
 #training = spark.read.format("libsvm").option("numFeatures", "3").load("file:/root/PycharmProjects/ptp/Data/regression-2.txt")
-training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/regression-2.txt")
+training = spark.read.format("libsvm").load(file)
 # .load("file:/opt/data/sample_linear_regression_data.txt")
 
 #training.show()
 #exit(0)
 
-lr = LinearRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
+lr = LinearRegression(maxIter=maxIter, regParam=0.3, elasticNetParam=0.8)
 
 # Fit the model
 lrModel = lr.fit(training)
