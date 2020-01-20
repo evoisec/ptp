@@ -26,7 +26,7 @@ d = 7
 
 mlType = "regression"
 
-#for x in range(11, 100): (do on a seperate thread or process / shell for the next segment)
+# if necessary, do on a seperate thread or process / shell for the next segment e.g. for x in range(11, 100):
 for x in range(100):
 
     # generates labels for Feature Vectors in the form of sequential numbers
