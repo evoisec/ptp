@@ -4,7 +4,8 @@ from pyspark.ml.regression import LinearRegression
 spark = SparkSession.builder.appName("LinearRegression").getOrCreate()
 
 # Load training data
-training = spark.read.format("libsvm").option("numFeatures", "3").load("file:/root/PycharmProjects/ptp/Data/regression.txt")
+#training = spark.read.format("libsvm").option("numFeatures", "3").load("file:/root/PycharmProjects/ptp/Data/regression-2.txt")
+training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/regression-2.txt")
 # .load("file:/opt/data/sample_linear_regression_data.txt")
 
 #training.show()
