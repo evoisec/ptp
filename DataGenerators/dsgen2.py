@@ -7,7 +7,8 @@ import uuid
 # while emulating specific and realistic Patterns in the data, which can then ensure realistic function and
 # performnance testing of Data Science workloads
 # Writes the syntehtic dataset to the local file system, not HDFS, however doesnt suffer from RAM constraints like the
-# Scikit-learn equivalent since it generates nd writes the dataset one feature vector at a time
+# Scikit-learn equivalent since it generates nd writes the dataset one feature vector at a time. Hence it can generate
+# # Data Scinece datasets of any size .....
 #
 # @author: Evo Eftimov
 #
