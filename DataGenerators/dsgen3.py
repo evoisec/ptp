@@ -2,19 +2,17 @@ import pyarrow as pa
 import uuid
 from random import *
 
-##################################################################################################################################
+#############################################################################################################
+# Generates synthetic data in the standard LIBSVM data format specifically intended for Machine Learning
+# while emulating specific and realistic Patterns in the data, which can then ensure realistic function and
+# performnance testing of Data Science workloads
+# Writes the syntehtic dataset to HDFS and doesnt suffer from RAM constraints like the
+# Scikit-learn equivalent since it generates nd writes the dataset one feature vector at a time. Hence it can generate
+# Data Scinece datasets of any size .....
 #
-# Tool for generation of synthetic data directly on HDFS. Supports generation of squentially ordered data
-# Adjust the rowID range (for every thread) and run it from multiple terminal windows to emulate multiple parallel threads and thus
-# generate synthetic data fast
+# @author: Evo Eftimov
 #
-# Supports the following Data Science Workloads:
-# gmm.py
-# Bayes.py
-# svm.py
-# all classification type of data science workloads
-#
-###################################################################################################################################
+#############################################################################################################
 
 #Connect to an HDFS cluster. All parameters are optional and should
 #only be set if the defaults need to be overridden.
@@ -36,7 +34,6 @@ from random import *
 #extra Key/Value pairs for config; Will override any
 #hdfs-site.xml properties
 
-# 0 1:0.2550690257394217 2:0.49543508709194095 3:0.4494910647887381
 
 #kerb_ticket=kerb_ticket
 fs = pa.hdfs.connect("localhost", user="cloudera")
