@@ -68,21 +68,21 @@ fs = pa.hdfs.connect(hdfsHost, user=user)
 # open and write to hdfs file
 with fs.open(file, 'wb') as f:
 
-    f.write(("NIN" + ', ' + 'NAME' + ', ' + 'BENEFITS' + ', ' + 'ADDRESS' + ', ' + 'BALANCE' +  ', ' + 'ACC_NAME' + ', ' + 'DATE' + '\n').encode('UTF-8'))
+    f.write(("NIN" + ', ' + 'NAME' + ', ' + 'BENEFITS' + ', ' + 'ADDRESS' + ', ' + 'BALANCE' +  ', ' + 'ACC_NAME' + ', ' + 'CODE' + ', ' + 'DATE' + '\n').encode('UTF-8'))
 
     for rowID in range(range1, range2):
 
         random_date = start + (end - start) * random.random()
 
-        f.write(( str(rowID) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
-                 + str(random_date.date()) + '\n').encode('UTF-8'))
+        #f.write(( str(rowID) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
+                 #+ str(random_date.date()) + '\n').encode('UTF-8'))
 
         # generates labels for Feature Vectors in the form of unique numbers, which are gurateed to be unique through cryptographic means
         #f.write((str(uuid.uuid4().int) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
                  #+ str(random_date.date()) + '\n').encode('UTF-8'))
 
-        #f.write((str(uuid.uuid4()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
-                 #+ str(random_date.date()) + '\n').encode('UTF-8'))
+        f.write( (  str(uuid.uuid4()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' +  randString(10) + ', ' + str(random.random()) + ', ' + randString(15) + ', '
+                 + str(random.randint(1, 500)) + ', ' + str(random_date.date()) + '\n').encode('UTF-8') )
 
 fs.close()
 
