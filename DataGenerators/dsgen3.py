@@ -10,6 +10,10 @@ from random import *
 # Scikit-learn equivalent since it generates nd writes the dataset one feature vector at a time. Hence it can generate
 # Data Scinece datasets of any size .....
 #
+# Note - even though this program uses HDFS to write its output data, it is NOT a Spark Job. It is a standalone process
+# which can be executed on any machine which has network connectivity with HDFS cluster. It can also be executed on multiple
+# threads, as each is given a seperate range of Feature Vectors to generate
+#
 # @author: Evo Eftimov
 #
 #############################################################################################################
