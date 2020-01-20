@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     Config = {}
 
-    f = open('DecisionTree.cfg', 'r')
+    f = open('gmm.cfg', 'r')
     line = f.readline()
     while (line != ""):
         line = line.rstrip()
