@@ -11,6 +11,23 @@ from pyspark.ml.evaluation import ClusteringEvaluator
 
 from pyspark.sql import SparkSession
 
+Config = {}
+
+f = open('kmeans.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+trainRatio = float(Config['train.ratio'])
+testRatio = float(Config['test.ratio'])
+clusters = int(Config['cluster.centers'])
+
 if __name__ == "__main__":
     spark = SparkSession\
         .builder\
@@ -19,10 +36,10 @@ if __name__ == "__main__":
 
     # $example on$
     # Loads data.
-    dataset = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification.txt")
+    dataset = spark.read.format("libsvm").load(file)
 
     # Trains a k-means model.
-    kmeans = KMeans().setK(3).setSeed(1)
+    kmeans = KMeans().setK(clusters).setSeed(1)
     model = kmeans.fit(dataset)
 
     # Make predictions
