@@ -34,24 +34,43 @@ import string
 #extra Key/Value pairs for config; Will override any
 #hdfs-site.xml properties
 
+Config = {}
+
+f = open('dsgen3-3.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+#note, in Python 3, integers have unlimited precision
+range1 = int(Config['range1'])
+range2 = int(Config['range2'])
+hdfsHost = Config['hdfs.hostname']
+user = Config['user']
+days = int(Config['days'])
 
 start = datetime.now()
-end = start + timedelta(days=730)
+end = start + timedelta(days=days)
 
 def randString(stringLength):
     res = ''.join(random.choices(string.ascii_letters + string.digits, k=stringLength))
     return res
 
 #kerb_ticket=kerb_ticket
-fs = pa.hdfs.connect("localhost", user="cloudera")
+fs = pa.hdfs.connect(hdfsHost, user=user)
 
 # hdfs file access modes: rb, wb, ab
 # open and write to hdfs file
-with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
+with fs.open(file, 'wb') as f:
 
     f.write(("NIN" + ', ' + 'NAME' + ', ' + 'BENEFITS' + ', ' + 'ADDRESS' + ', ' + 'BALANCE' +  ', ' + 'ACC_NAME' + ', ' + 'DATE' + '\n').encode('UTF-8'))
 
-    for rowID in range(0, 30):
+    for rowID in range(range1, range2):
 
         random_date = start + (end - start) * random.random()
 
