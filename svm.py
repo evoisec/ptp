@@ -8,12 +8,29 @@ Binary Classification
 from pyspark.sql import SparkSession
 from pyspark.ml.classification import LinearSVC
 
+Config = {}
+
+f = open('svm.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+trainRatio = float(Config['train.ratio'])
+testRatio = float(Config['test.ratio'])
+maxIter = int(Config['max.iterations'])
+
 spark = SparkSession.builder.appName("SVM").getOrCreate()
 
 # Load training data
-training = spark.read.format("libsvm").load("file:/root/PycharmProjects/ptp/Data/classification-2.txt")
+training = spark.read.format("libsvm").load(file)
 
-lsvc = LinearSVC(maxIter=10, regParam=0.1)
+lsvc = LinearSVC(maxIter=maxIter, regParam=0.1)
 
 # Fit the model
 lsvcModel = lsvc.fit(training)
