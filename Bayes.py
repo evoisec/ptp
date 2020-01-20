@@ -17,14 +17,30 @@ from pyspark.mllib.util import MLUtils
 
 if __name__ == "__main__":
 
+    Config = {}
+
+    f = open('Bayes.cfg', 'r')
+    line = f.readline()
+    while (line != ""):
+        line = line.rstrip()
+        x = line.split('=')
+        print(x[0])
+        print(x[1])
+        Config[x[0]] = x[1]
+        line = f.readline()
+
+    file = Config['file']
+    trainRatio = float(Config['train.ratio'])
+    testRatio = float(Config['test.ratio'])
+
     sc = SparkContext(appName="NaiveBayes")
 
     # $example on$
     # Load and parse the data file.
-    data = MLUtils.loadLibSVMFile(sc, "file:/root/PycharmProjects/ptp/Data/classification-2.txt")
+    data = MLUtils.loadLibSVMFile(sc, file)
 
     # Split data approximately into training (60%) and test (40%)
-    training, test = data.randomSplit([0.6, 0.4])
+    training, test = data.randomSplit([trainRatio, testRatio])
 
     # Train a naive Bayes model.
     model = NaiveBayes.train(training, 1.0)
