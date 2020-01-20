@@ -1,15 +1,32 @@
 from pyspark.sql import SparkSession
 from pyspark.ml.classification import LogisticRegression
 
+Config = {}
+
+f = open('LogisticRegression.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+trainRatio = float(Config['train.ratio'])
+testRatio = float(Config['test.ratio'])
+maxIter = int(Config['max.iterations'])
+
 spark = SparkSession.builder.appName("LogisticRegression").getOrCreate()
 
 # Load training data
 training = spark \
     .read \
     .format("libsvm") \
-    .load("file:/root/PycharmProjects/ptp/Data/classification.txt")
+    .load(file)
 
-lr = LogisticRegression(maxIter=10, regParam=0.3, elasticNetParam=0.8)
+lr = LogisticRegression(maxIter=maxIter, regParam=0.3, elasticNetParam=0.8)
 
 # Fit the model
 lrModel = lr.fit(training)
