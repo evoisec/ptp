@@ -18,6 +18,10 @@ from random import *
 #
 #############################################################################################################
 
+# Note: if there is further demand, the program can be enhanced further to support configurablke number of Features
+# and ranges for them
+
+
 #Connect to an HDFS cluster. All parameters are optional and should
 #only be set if the defaults need to be overridden.
 
@@ -39,22 +43,43 @@ from random import *
 #hdfs-site.xml properties
 
 
+Config = {}
+
+f = open('datagen2-3.cfg', 'r')
+line = f.readline()
+while (line != ""):
+    line = line.rstrip()
+    x = line.split('=')
+    print(x[0])
+    print(x[1])
+    Config[x[0]] = x[1]
+    line = f.readline()
+
+file = Config['file']
+
+i = int(Config['i'])
+a = int(Config['a'])
+b = int(Config['b'])
+c = int(Config['c'])
+d = int(Config['d'])
+
+mlType = Config['ml.type']
+
+#note, in Python 3, integers have unlimited precision
+range1 = int(Config['range1'])
+range2 = int(Config['range2'])
+
+hdfsHost = Config['hdfs.hostname']
+user = Config['user']
+
 #kerb_ticket=kerb_ticket
-fs = pa.hdfs.connect("localhost", user="cloudera")
-
-i =1
-a = 2
-b = 4
-c = 5
-d = 7
-
-mlType = "regression"
+fs = pa.hdfs.connect(hdfsHost, user=user)
 
 # hdfs file access modes: rb, wb, ab
 # open and write to hdfs file
-with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
+with fs.open(file, 'wb') as f:
 
-    for rowID in range(0, 30):
+    for rowID in range(range1, range2):
 
         # generates labels for Feature Vectors in the form of sequential numbers
         #f.write( (str(rowID) + ' 1:' + str(random.random())  + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8') )
@@ -63,11 +88,13 @@ with fs.open("/user/cloudera/synt/syntdata.csv", 'wb') as f:
         #f.write((str(uuid.uuid4().int) + ' 1:' + str(random.random()) + ' 2:' + str(random.random()) + ' 3:' + str(random.random()) + '\n').encode('UTF-8'))
 
         if (mlType.lower() == "classification"):
+
             f.write( ( "0" + " 1:" + str(gauss(1, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(21, 2)) + "\n").encode('UTF-8') )
             f.write( ( "1" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(17, 0.2)) + "\n").encode('UTF-8') )
             f.write( ( "3" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(7, 0.2)) + " 3:" + str(gauss(44, 1)) + " 4:" + str(gauss(33, 1)) + "\n").encode('UTF-8') )
 
         if (mlType.lower() == "regression"):
+
             x1 = float("{0:.2f}".format(uniform(1, 3)))
             x2 = float("{0:.2f}".format(uniform(5, 8)))
             x3 = float("{0:.2f}".format(uniform(12, 18)))
