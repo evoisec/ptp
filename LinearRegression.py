@@ -17,12 +17,13 @@ file = Config['file']
 trainRatio = float(Config['train.ratio'])
 testRatio = float(Config['test.ratio'])
 maxIter = int(Config['max.iterations'])
+partitions = int(Config['partitions'])
 
 spark = SparkSession.builder.appName("LinearRegression").getOrCreate()
 
 # Load training data
 #training = spark.read.format("libsvm").option("numFeatures", "3").load("file:/root/PycharmProjects/ptp/Data/regression-2.txt")
-training = spark.read.format("libsvm").load(file)
+training = spark.read.format("libsvm").load(file).repartition(partitions)
 # .load("file:/opt/data/sample_linear_regression_data.txt")
 
 #training.show()
