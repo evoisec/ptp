@@ -1,5 +1,5 @@
 """
-NaiveBayes Example.
+NaiveBayes Model
 
 """
 
