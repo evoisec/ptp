@@ -24,7 +24,7 @@ seed(1)
 
 Config = {}
 
-f = open('linear-patterns-custom-local.cfg', 'r')
+f = open('all-patterns-custom-local.cfg', 'r')
 line = f.readline()
 while (line != ""):
     line = line.rstrip()
