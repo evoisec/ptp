@@ -15,7 +15,7 @@ from sklearn.datasets import make_moons, make_circles, make_classification
 
 Config = {}
 
-f = open('datagen1.cfg', 'r')
+f = open('classification-clust-patterns-local.cfg', 'r')
 line = f.readline()
 while (line != ""):
     line = line.rstrip()
