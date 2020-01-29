@@ -36,7 +36,7 @@ import string
 
 Config = {}
 
-f = open('dsgen3-3.cfg', 'r')
+f = open('business-schema-dataset-gen.cfg', 'r')
 line = f.readline()
 while (line != ""):
     line = line.rstrip()
