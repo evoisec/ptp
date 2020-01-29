@@ -24,7 +24,7 @@ seed(1)
 
 Config = {}
 
-f = open('datagen2-3.cfg', 'r')
+f = open('linear-patterns-custom-local.cfg', 'r')
 line = f.readline()
 while (line != ""):
     line = line.rstrip()
