@@ -45,7 +45,7 @@ from random import *
 
 Config = {}
 
-f = open('all-patterns-custom-local.cfg', 'r')
+f = open('all-patterns-custom-hdfs.cfg', 'r')
 line = f.readline()
 while (line != ""):
     line = line.rstrip()
