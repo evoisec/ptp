@@ -59,9 +59,20 @@ for x in range(range1, range2):
 
     if (mlType.lower() == "classification"):
 
-        file.write("0" + " 1:" + str(gauss(1,0.1)) + " 2:" + str(gauss(5,0.5)) + " 3:" + str(gauss(9,1)) + " 4:" + str(gauss(21,2)) + "\n")
+        file.write("0" + " 1:" + str(gauss(3,0.1)) + " 2:" + str(gauss(5,0.5)) + " 3:" + str(gauss(9,1)) + " 4:" + str(gauss(21,2)) + "\n")
         file.write("1" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(17, 0.2)) + "\n")
         file.write("3" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(7, 0.2)) + " 3:" + str(gauss(44, 1)) + " 4:" + str(gauss(33, 1)) + "\n")
+
+    if (mlType.lower() == "svm"):
+
+        file.write( "0" + " 1:" + str(gauss(3, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(21, 2)) + "\n" )
+        file.write( "1" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(17, 0.2)) + "\n" )
+
+    if (mlType.lower() == "gmm"):
+
+        file.write( str(uuid.uuid4().int) + " 1:" + str(gauss(3, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(21, 2)) + "\n")
+        file.write( str(uuid.uuid4().int) + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(17, 0.2)) + "\n" )
+        file.write( str(uuid.uuid4().int) + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(7, 0.2)) + " 3:" + str(gauss(44, 1)) + " 4:" + str(gauss(33, 1)) + "\n" )
 
     if (mlType.lower() == "regression"):
 
