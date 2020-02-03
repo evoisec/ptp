@@ -89,7 +89,7 @@ with fs.open(file, 'wb') as f:
 
         if (mlType.lower() == "classification"):
 
-            f.write( ( "0" + " 1:" + str(gauss(1, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(21, 2)) + "\n").encode('UTF-8') )
+            f.write( ( "0" + " 1:" + str(gauss(3, 0.1)) + " 2:" + str(gauss(5, 0.5)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(21, 2)) + "\n").encode('UTF-8') )
             f.write( ( "1" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(3, 0.2)) + " 3:" + str(gauss(9, 1)) + " 4:" + str(gauss(17, 0.2)) + "\n").encode('UTF-8') )
             f.write( ( "2" + " 1:" + str(gauss(11, 1)) + " 2:" + str(gauss(7, 0.2)) + " 3:" + str(gauss(44, 1)) + " 4:" + str(gauss(33, 1)) + "\n").encode('UTF-8') )
 
