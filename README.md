@@ -3,6 +3,8 @@ Data Science Focused, Hadoop Performance Testing & Measurement Suite - Data Scie
 
 Measures the peromance of all key Data Science / Machine Learning Algorithms / Models in a controlled and systematic way
 
+Get additional, Business Processing focused, perfomance testing workloads from https://github.com/evoisec/ptee
+
 Folder contents:
 
 The folder Data - contains sample datasets, specifically generated for Data Science Workloads by custom developed Synthetic Data Generators
